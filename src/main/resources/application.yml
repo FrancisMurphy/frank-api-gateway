@@ -1,0 +1,33 @@
+server:
+  port: 10000
+
+
+
+backend:
+  service:
+    timeout:
+      inmillis: 10000
+    url:
+      prefix: http://127.0.0.1:8080
+
+spring:
+  application:
+    name: frank-api-gateway
+  data:
+    mongodb:
+      database: frank-api
+      host: localhost
+      port: 27017
+  redis:
+    #    jedis:
+    #      max-active: 100
+    #      max-wait: -1
+    #      max-idle: 50
+    #      min-idle: 20
+    #    cluster:
+    #      nodes: 192.168.1.193:7000,192.168.1.193:7002,192.168.1.193:7004
+    #    type: cluster
+    host: 192.168.1.201
+    port: 6379
+    password: 1qaz#EDC
+    type: single
