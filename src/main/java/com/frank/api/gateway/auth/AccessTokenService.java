@@ -1,7 +1,8 @@
 package com.frank.api.gateway.auth;
 
 import com.frank.api.gateway.auth.constant.ApiGatewayAuthConfigConstant;
-import com.frank.api.gateway.auth.constant.ApiGatewayAuthErrorCode;
+import com.frank.api.gateway.auth.constant.ApiGatewayAuthResponseCode;
+import com.frank.api.gateway.auth.dto.GetAccessTokenReq;
 import com.frank.api.gateway.auth.exception.ApiGatewayException;
 import com.frank.api.gateway.auth.pojo.AppInfoWithToken;
 import com.frank.api.gateway.auth.repository.AppInfoRepository;
@@ -23,13 +24,16 @@ public class AccessTokenService {
         this.appInfoRepository = appInfoRepository;
     }
 
-    public Mono<AppInfoWithToken> getAccessToken(@NonNull final String appId, @NonNull final String secret) {
+    public Mono<AppInfoWithToken> getAccessToken(@NonNull GetAccessTokenReq req) {
+
+        final String appId = req.getAppId();
+        final String secret = req.getSecret();
 
         return appInfoRepository
             .findById(appId)
-            .switchIfEmpty(Mono.error(new ApiGatewayException(ApiGatewayAuthErrorCode.CAN_NOT_FIND_APP_INFO,"无法找到应用信息，请检查应用信息")))
+            .switchIfEmpty(Mono.error(new ApiGatewayException(ApiGatewayAuthResponseCode.CAN_NOT_FIND_APP_INFO,"无法找到应用信息，请检查应用信息")))
             .filter(appInfo->appInfo.getSecret().equals(secret))
-            .switchIfEmpty(Mono.error(new ApiGatewayException(ApiGatewayAuthErrorCode.APP_AUTH_INFO_ERROR,"鉴权应用信息错误，请检查应用信息")))
+            .switchIfEmpty(Mono.error(new ApiGatewayException(ApiGatewayAuthResponseCode.APP_AUTH_INFO_ERROR,"鉴权应用信息错误，请检查应用信息")))
             .flatMap(appInfo-> {
                 final AppInfoWithToken appInfoWithToken = new AppInfoWithToken(AccessTokenGenerator.create(appInfo),appInfo);
                 reactiveRedisTemplate.opsForHash()

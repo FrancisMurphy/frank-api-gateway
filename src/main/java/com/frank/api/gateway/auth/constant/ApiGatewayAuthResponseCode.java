@@ -3,7 +3,9 @@ package com.frank.api.gateway.auth.constant;
 /**
  * 鉴权错误码 500000-599999
  */
-public interface ApiGatewayAuthErrorCode {
+public interface ApiGatewayAuthResponseCode {
+
+    String SUCCESS = "000000";
 
     /**
      * 无法找到应用信息，请检查应用信息
