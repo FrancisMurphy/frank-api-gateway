@@ -12,6 +12,9 @@ import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+/**
+ * @author frank
+ */
 @Component
 public class AccessTokenService {
 
