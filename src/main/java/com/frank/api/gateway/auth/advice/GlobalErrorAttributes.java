@@ -2,7 +2,6 @@ package com.frank.api.gateway.auth.advice;
 
 import com.frank.api.gateway.auth.exception.ApiGatewayException;
 import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 
@@ -12,7 +11,7 @@ import java.util.Map;
 /**
  * @author frank
  */
-@Component
+//@Component
 public class GlobalErrorAttributes extends DefaultErrorAttributes {
 
     public GlobalErrorAttributes() {

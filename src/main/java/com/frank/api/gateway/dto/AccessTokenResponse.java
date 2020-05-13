@@ -33,6 +33,6 @@ public class AccessTokenResponse extends BasicResponse{
     }
 
     public static AccessTokenResponse success(@NonNull AppInfoWithToken appInfoWithToken) {
-        new AccessTokenResponse(ApiGatewayAuthResponseCode.SUCCESS,appInfoWithToken.getAccessToken(),appInfoWithToken.getExpireIn());
+        return new AccessTokenResponse(ApiGatewayAuthResponseCode.SUCCESS,appInfoWithToken.getAccessToken(),appInfoWithToken.getExpireIn());
     }
 }

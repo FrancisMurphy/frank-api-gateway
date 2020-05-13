@@ -18,15 +18,16 @@ import reactor.core.publisher.Mono;
 @Component
 public class AccessTokenService {
 
-    private ReactiveRedisTemplate reactiveRedisTemplate;
+    private ReactiveRedisTemplate apiRedisTemplate;
 
     private AppInfoRepository appInfoRepository;
 
-    public AccessTokenService(ReactiveRedisTemplate reactiveRedisTemplate, AppInfoRepository appInfoRepository) {
-        this.reactiveRedisTemplate = reactiveRedisTemplate;
+    public AccessTokenService(ReactiveRedisTemplate apiRedisTemplate, AppInfoRepository appInfoRepository) {
+        this.apiRedisTemplate = apiRedisTemplate;
         this.appInfoRepository = appInfoRepository;
     }
 
+    @SuppressWarnings("unchecked")
     public Mono<AppInfoWithToken> getAccessToken(@NonNull GetAccessTokenReq req) {
 
         final String appId = req.getAppId();
@@ -39,9 +40,9 @@ public class AccessTokenService {
             .switchIfEmpty(Mono.error(new ApiGatewayException(ApiGatewayAuthResponseCode.APP_AUTH_INFO_ERROR,"鉴权应用信息错误，请检查应用信息")))
             .flatMap(appInfo-> {
                 final AppInfoWithToken appInfoWithToken = new AppInfoWithToken(AccessTokenGenerator.create(appInfo),appInfo);
-                reactiveRedisTemplate.opsForHash()
-                    .put(ApiGatewayAuthConfigConstant.ACCESSTOKEN_CACHE_KEY,appInfoWithToken.getAccessToken(),appInfoWithToken.getAppId());
-                return Mono.just(appInfoWithToken);
+                return Mono.just(new AppInfoWithToken(AccessTokenGenerator.create(appInfo),appInfo)).then(apiRedisTemplate.opsForHash()
+                    .put(ApiGatewayAuthConfigConstant.ACCESSTOKEN_CACHE_KEY, appInfoWithToken.getAccessToken(),
+                        appInfoWithToken.getAppId()));
             });
     }
 }

@@ -17,8 +17,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class CacheConfiguration {
 
     @Bean
-    @Qualifier("reactiveRedisTemplate")
-    public ReactiveRedisTemplate<String, Object> stringReactiveRedisTemplate(final ReactiveRedisConnectionFactory reactiveRedisConnectionFactory) {
+    @Qualifier("apiRedisTemplate")
+    public ReactiveRedisTemplate<String, Object> apiRedisTemplate(final ReactiveRedisConnectionFactory reactiveRedisConnectionFactory) {
         RedisSerializer<String> keySerializer = new StringRedisSerializer();
         RedisSerializer<Object> valueSerializer = new Jackson2JsonRedisSerializer(Object.class);
         RedisSerializationContext<String, Object> serializationContext = RedisSerializationContext

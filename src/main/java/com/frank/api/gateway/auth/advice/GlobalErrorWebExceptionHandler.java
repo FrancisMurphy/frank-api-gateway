@@ -17,26 +17,28 @@ import java.util.Map;
 /**
  * @author frank
  */
-@Component
-@Order(Integer.MIN_VALUE)
-public class GlobalErrorWebExceptionHandler extends AbstractErrorWebExceptionHandler {
+//@Component
+//@Order(Integer.MIN_VALUE)
+public class GlobalErrorWebExceptionHandler
+//    extends AbstractErrorWebExceptionHandler
+{
 
-    public GlobalErrorWebExceptionHandler(ErrorAttributes errorAttributes, ResourceProperties resourceProperties,
-        ApplicationContext applicationContext) {
-        super(errorAttributes, resourceProperties, applicationContext);
-    }
-
-    @Override
-    protected RouterFunction<ServerResponse> getRoutingFunction(final ErrorAttributes errorAttributes) {
-        return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse);
-    }
-
-    private Mono<ServerResponse> renderErrorResponse(final ServerRequest request) {
-
-        final Map<String, Object> errorPropertiesMap = getErrorAttributes(request, true);
-
-        return ServerResponse.status(HttpStatus.OK)
-            .contentType(MediaType.APPLICATION_JSON)
-            .body(BodyInserters.fromValue(errorPropertiesMap));
-    }
+//    public GlobalErrorWebExceptionHandler(ErrorAttributes errorAttributes, ResourceProperties resourceProperties,
+//        ApplicationContext applicationContext) {
+//        super(errorAttributes, resourceProperties, applicationContext);
+//    }
+//
+//    @Override
+//    protected RouterFunction<ServerResponse> getRoutingFunction(final ErrorAttributes errorAttributes) {
+//        return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse);
+//    }
+//
+//    private Mono<ServerResponse> renderErrorResponse(final ServerRequest request) {
+//
+//        final Map<String, Object> errorPropertiesMap = getErrorAttributes(request, true);
+//
+//        return ServerResponse.status(HttpStatus.OK)
+//            .contentType(MediaType.APPLICATION_JSON)
+//            .body(BodyInserters.fromValue(errorPropertiesMap));
+//    }
 }

@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 /**
  * @author frank
  */
-@RestController("auth")
+@RestController
 public class AuthController {
 
     private AccessTokenService accessTokenService;
@@ -20,10 +20,9 @@ public class AuthController {
         this.accessTokenService = accessTokenService;
     }
 
-    @GetMapping("token")
+    @GetMapping("auth/token")
     public Mono<AccessTokenResponse> getAccessToken(@RequestParam("appid") String appId,
         @RequestParam("secret") String secret) {
-
         return accessTokenService.getAccessToken(new GetAccessTokenReq(appId,secret))
             .map(AccessTokenResponse::success);
     }

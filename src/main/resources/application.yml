@@ -1,8 +1,6 @@
 server:
   port: 10000
 
-
-
 backend:
   service:
     timeout:
@@ -15,8 +13,8 @@ spring:
     name: frank-api-gateway
   data:
     mongodb:
-      database: frank-api
-      host: localhost
+      database: admin
+      host: 172.16.32.93
       port: 27017
   redis:
     #    jedis:
@@ -31,3 +29,18 @@ spring:
     port: 6379
     password: 1qaz#EDC
     type: single
+  cloud:
+    gateway:
+      routes:
+        - id: api
+          uri: http://localhost:20000/api
+          predicates:
+            - Path=/apiservice/*
+#        - id: auth
+#          uri: http://localhost:10000
+#          predicates:
+#            - Path=/appinfo/*
+
+logging:
+  level:
+    root: debug
