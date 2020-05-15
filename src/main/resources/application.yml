@@ -33,9 +33,14 @@ spring:
     gateway:
       routes:
         - id: api
-          uri: http://localhost:20000/api
+          uri: http://localhost:20000
           predicates:
-            - Path=/apiservice/*
+            - Path=/apiservice/**
+          filters:
+            - StripPrefix=1
+
+#            -
+
 #        - id: auth
 #          uri: http://localhost:10000
 #          predicates:

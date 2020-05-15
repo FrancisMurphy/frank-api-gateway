@@ -16,9 +16,14 @@ public enum ApiResponseCode {
     ILLEGAL_REQUEST_PARAMETER("10000"),
 
     /**
-     * app id 为空
+     * app_id 为空
      */
     APP_ID_EMPTY("10001"),
+
+    /**
+     * access_token 为空
+     */
+    ACCESS_TOKEN_EMPTY("10002"),
 
     /**
      * 请求处理失败

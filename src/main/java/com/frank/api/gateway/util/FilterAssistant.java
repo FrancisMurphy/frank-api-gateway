@@ -4,6 +4,7 @@ import com.frank.api.gateway.constant.ApiParamKeys;
 import com.frank.api.gateway.constant.ApiResponseCode;
 import com.frank.api.gateway.dto.BasicResponse;
 import lombok.NonNull;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 
@@ -13,16 +14,16 @@ import org.springframework.web.server.ServerWebExchange;
  */
 public class FilterAssistant {
 
-    public static BasicResponse checkHead(@NonNull ServerWebExchange exchange,@NonNull String... headNames) {
+    public static BasicResponse checkHead(@NonNull final ServerHttpRequest request,@NonNull String... headNames) {
 
         for(String headName : headNames) {
 
             //检查头
-            String headValue = exchange.getRequest().getQueryParams().getFirst(headName);
+            String headValue = request.getQueryParams().getFirst(headName);
 
             if (StringUtils.isEmpty(headValue)) {
-                if(ApiParamKeys.REQ_HEAD_APP_ID.equals(headName)) {
-                    return new BasicResponse(ApiResponseCode.APP_ID_EMPTY.getCode(),ApiResponseCode.APP_ID_EMPTY.name());
+                if(ApiParamKeys.REQ_HEAD_ACCESS_TOKEN.equals(headName)) {
+                    return new BasicResponse(ApiResponseCode.ACCESS_TOKEN_EMPTY.getCode(),ApiResponseCode.ACCESS_TOKEN_EMPTY.name());
                 }
                 else {
                     return new BasicResponse(ApiResponseCode.ILLEGAL_REQUEST_PARAMETER.getCode(),ApiResponseCode.ILLEGAL_REQUEST_PARAMETER.name());
