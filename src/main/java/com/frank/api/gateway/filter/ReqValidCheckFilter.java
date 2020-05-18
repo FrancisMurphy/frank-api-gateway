@@ -60,7 +60,7 @@ public class ReqValidCheckFilter implements GatewayFilter ,Ordered{
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return response.writeWith(Mono.just(buffer));
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            log.error("ReqValidCheckFilter error:",e);
             response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
             return response.setComplete();
         }

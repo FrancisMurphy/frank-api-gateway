@@ -5,7 +5,15 @@ package com.frank.api.gateway.auth.constant;
  */
 public interface ApiGatewayAuthResponseCode {
 
+    /**
+     * 处理成功
+     */
     String SUCCESS = "000000";
+
+    /**
+     * 系统繁忙
+     */
+    String INNER_ERROR = "100000";
 
     /**
      * 无法找到应用信息，请检查应用信息

@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(code = HttpStatus.OK)
     public BasicResponse handleException(Exception e) {
-        log.error("error!",e);
-        return BasicResponse.success();
+        log.error("GlobalExceptionHandler error:",e);
+        return BasicResponse.error();
     }
 }

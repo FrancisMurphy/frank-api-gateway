@@ -30,4 +30,8 @@ public class BasicResponse {
     public static BasicResponse success() {
         return new BasicResponse(ApiGatewayAuthResponseCode.SUCCESS);
     }
+
+    public static BasicResponse error() {
+        return new BasicResponse(ApiGatewayAuthResponseCode.INNER_ERROR, "系统繁忙");
+    }
 }
