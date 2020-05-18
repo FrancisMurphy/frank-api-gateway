@@ -15,6 +15,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.core.io.buffer.DataBufferUtils;
+import org.springframework.core.io.buffer.DefaultDataBufferFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -25,7 +26,9 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.nio.CharBuffer;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 检查参数格式是否合法
@@ -53,8 +56,9 @@ public class ReqValidCheckFilter implements GatewayFilter ,Ordered{
 
         try {
             String respBody = objectMapper.writeValueAsString(errorResponse);
-            response.writeWith(Flux.just(exchange.getResponse().bufferFactory().wrap(respBody.getBytes(StandardCharsets.UTF_8))));
-            return response.setComplete();
+            DataBuffer buffer = response.bufferFactory().wrap(respBody.getBytes(StandardCharsets.UTF_8));
+            response.setStatusCode(HttpStatus.UNAUTHORIZED);
+            return response.writeWith(Mono.just(buffer));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -90,5 +94,11 @@ public class ReqValidCheckFilter implements GatewayFilter ,Ordered{
 //                return super.writeWith(body);
 //            }
 //        };
+//    }
+
+//    public Mono<Void> processResp(ServerWebExchange exchange, GatewayFilterChain chain){
+//        ServerHttpResponse response = exchange.getResponse();
+//
+//
 //    }
 }
