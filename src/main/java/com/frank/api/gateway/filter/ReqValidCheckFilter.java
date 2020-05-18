@@ -70,35 +70,4 @@ public class ReqValidCheckFilter implements GatewayFilter ,Ordered{
     public int getOrder() {
         return 0;
     }
-
-    //    private ServerHttpResponseDecorator processResponse(ServerHttpResponse response, DataBufferFactory bufferFactory, Object obj) {
-//        return new ServerHttpResponseDecorator(response) {
-//
-//            @SuppressWarnings("unchecked")
-//            @Override
-//            public Mono<Void> writeWith(Publisher<? extends DataBuffer> body) {
-//                if (body instanceof Flux) {
-//                    Flux<? extends DataBuffer> flux = (Flux<? extends DataBuffer>) body;
-//                    return super.writeWith(flux.map(buffer -> {
-//                        CharBuffer charBuffer = StandardCharsets.UTF_8.decode(buffer.asByteBuffer());
-//                        DataBufferUtils.release(buffer);
-//                        JsonNode jsonNode = readNode(charBuffer.toString());
-//                        JsonNode payload = jsonNode.get("payload");
-//                        String text = payload.toString();
-//                        String content = AesUtils.X.encrypt(text);
-//                        log.info("修改响应体payload,修改前:{},修改后:{}", text, content);
-//                        setPayloadTextNode(content, jsonNode);
-//                        return bufferFactory.wrap(jsonNode.toString().getBytes(StandardCharsets.UTF_8));
-//                    }));
-//                }
-//                return super.writeWith(body);
-//            }
-//        };
-//    }
-
-//    public Mono<Void> processResp(ServerWebExchange exchange, GatewayFilterChain chain){
-//        ServerHttpResponse response = exchange.getResponse();
-//
-//
-//    }
 }

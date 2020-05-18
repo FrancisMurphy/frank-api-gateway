@@ -40,9 +40,9 @@ public class AccessTokenService {
             .switchIfEmpty(Mono.error(new ApiGatewayException(ApiGatewayAuthResponseCode.APP_AUTH_INFO_ERROR,"鉴权应用信息错误，请检查应用信息")))
             .flatMap(appInfo-> {
                 final AppInfoWithToken appInfoWithToken = new AppInfoWithToken(AccessTokenGenerator.create(appInfo),appInfo);
-                return Mono.just(new AppInfoWithToken(AccessTokenGenerator.create(appInfo),appInfo)).then(apiRedisTemplate.opsForHash()
+                return Mono.just(appInfoWithToken).then(apiRedisTemplate.opsForHash()
                     .put(ApiGatewayAuthConfigConstant.ACCESSTOKEN_CACHE_KEY, appInfoWithToken.getAccessToken(),
-                        appInfoWithToken.getAppId()));
+                        appInfoWithToken.getAppId())).then(Mono.just(appInfoWithToken));
             });
     }
 }

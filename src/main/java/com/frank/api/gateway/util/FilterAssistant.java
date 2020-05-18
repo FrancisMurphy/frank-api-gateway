@@ -19,7 +19,7 @@ public class FilterAssistant {
         for(String headName : headNames) {
 
             //检查头
-            String headValue = request.getQueryParams().getFirst(headName);
+            String headValue = request.getHeaders().getFirst(headName);
 
             if (StringUtils.isEmpty(headValue)) {
                 if(ApiParamKeys.REQ_HEAD_ACCESS_TOKEN.equals(headName)) {
