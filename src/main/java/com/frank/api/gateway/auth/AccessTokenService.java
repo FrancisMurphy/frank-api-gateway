@@ -4,6 +4,7 @@ import com.frank.api.gateway.auth.constant.ApiGatewayAuthConfigConstant;
 import com.frank.api.gateway.auth.constant.ApiGatewayAuthResponseCode;
 import com.frank.api.gateway.auth.dto.GetAccessTokenReq;
 import com.frank.api.gateway.auth.exception.ApiGatewayException;
+import com.frank.api.gateway.auth.model.AppInfo;
 import com.frank.api.gateway.auth.pojo.AppInfoWithToken;
 import com.frank.api.gateway.auth.repository.AppInfoRepository;
 import com.frank.api.gateway.util.AccessTokenGenerator;
@@ -45,4 +46,6 @@ public class AccessTokenService {
                         appInfoWithToken.getAppId())).then(Mono.just(appInfoWithToken));
             });
     }
+
+//    public Mono<AppInfo>
 }

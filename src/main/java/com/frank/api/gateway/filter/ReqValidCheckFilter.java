@@ -35,9 +35,10 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  * @author frank
  */
+@Order(1)
 @Slf4j
 @Component("reqValidCheckFilter")
-public class ReqValidCheckFilter implements GatewayFilter ,Ordered{
+public class ReqValidCheckFilter implements GatewayFilter{
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -56,18 +57,12 @@ public class ReqValidCheckFilter implements GatewayFilter ,Ordered{
 
         try {
             String respBody = objectMapper.writeValueAsString(errorResponse);
-            DataBuffer buffer = response.bufferFactory().wrap(respBody.getBytes(StandardCharsets.UTF_8));
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
-            return response.writeWith(Mono.just(buffer));
+            return response.writeWith(Mono.just(response.bufferFactory().wrap(respBody.getBytes(StandardCharsets.UTF_8))));
         } catch (JsonProcessingException e) {
             log.error("ReqValidCheckFilter error:",e);
             response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
             return response.setComplete();
         }
-    }
-
-    @Override
-    public int getOrder() {
-        return 0;
     }
 }
