@@ -22,6 +22,7 @@ public class RouteConfiguration {
         InitFilter initFilter,
         ReqValidCheckFilter reqValidCheckFilter,
         AppAuthFilter appAuthFilter) {
+
     return builder.routes()
             .route(r -> r.path("/apiservice/**")
                          .filters(f -> f.stripPrefix(1)
