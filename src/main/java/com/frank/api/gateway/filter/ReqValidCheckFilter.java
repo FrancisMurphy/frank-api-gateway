@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.frank.api.gateway.constant.ApiParamKeys;
 import com.frank.api.gateway.dto.BasicResponse;
 import com.frank.api.gateway.util.FilterAssistant;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.reactivestreams.Publisher;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -40,29 +41,11 @@ import java.util.concurrent.atomic.AtomicReference;
 @Component("reqValidCheckFilter")
 public class ReqValidCheckFilter implements GatewayFilter{
 
-    private ObjectMapper objectMapper = new ObjectMapper();
-
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-
         final ServerHttpRequest request = exchange.getRequest();
-
-        final BasicResponse errorResponse = FilterAssistant.checkHead(request,ApiParamKeys.REQ_HEAD_ACCESS_TOKEN);
-
-        if(errorResponse == null) {
-            return chain.filter(exchange);
-        }
-
-        final ServerHttpResponse response = exchange.getResponse();
-
-        try {
-            String respBody = objectMapper.writeValueAsString(errorResponse);
-            response.setStatusCode(HttpStatus.UNAUTHORIZED);
-            return response.writeWith(Mono.just(response.bufferFactory().wrap(respBody.getBytes(StandardCharsets.UTF_8))));
-        } catch (JsonProcessingException e) {
-            log.error("ReqValidCheckFilter error:",e);
-            response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
-            return response.setComplete();
-        }
+        FilterAssistant.checkHead(request,ApiParamKeys.REQ_HEAD_ACCESS_TOKEN);
+        return chain.filter(exchange);
     }
+
 }

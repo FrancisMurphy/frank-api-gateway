@@ -1,5 +1,6 @@
 package com.frank.api.gateway.util;
 
+import com.frank.api.gateway.auth.exception.ApiGatewayException;
 import com.frank.api.gateway.constant.ApiParamKeys;
 import com.frank.api.gateway.constant.ApiResponseCode;
 import com.frank.api.gateway.dto.BasicResponse;
@@ -14,7 +15,7 @@ import org.springframework.web.server.ServerWebExchange;
  */
 public class FilterAssistant {
 
-    public static BasicResponse checkHead(@NonNull final ServerHttpRequest request,@NonNull String... headNames) {
+    public static void checkHead(@NonNull final ServerHttpRequest request,@NonNull String... headNames) {
 
         for(String headName : headNames) {
 
@@ -23,14 +24,13 @@ public class FilterAssistant {
 
             if (StringUtils.isEmpty(headValue)) {
                 if(ApiParamKeys.REQ_HEAD_ACCESS_TOKEN.equals(headName)) {
-                    return new BasicResponse(ApiResponseCode.ACCESS_TOKEN_EMPTY.getCode(),ApiResponseCode.ACCESS_TOKEN_EMPTY.name());
+                    throw new ApiGatewayException(ApiResponseCode.ACCESS_TOKEN_EMPTY.getCode(),ApiResponseCode.ACCESS_TOKEN_EMPTY.name());
                 }
                 else {
-                    return new BasicResponse(ApiResponseCode.ILLEGAL_REQUEST_PARAMETER.getCode(),ApiResponseCode.ILLEGAL_REQUEST_PARAMETER.name());
+                    throw new ApiGatewayException(ApiResponseCode.ILLEGAL_REQUEST_PARAMETER.getCode(),ApiResponseCode.ILLEGAL_REQUEST_PARAMETER.name());
                 }
             }
         }
-        return null;
     }
 
 }
