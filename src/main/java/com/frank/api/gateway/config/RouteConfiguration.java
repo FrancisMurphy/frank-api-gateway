@@ -1,6 +1,7 @@
 package com.frank.api.gateway.config;
 
 import com.frank.api.gateway.filter.AppAuthFilter;
+import com.frank.api.gateway.filter.ExceptionHandlerFilter;
 import com.frank.api.gateway.filter.InitFilter;
 import com.frank.api.gateway.filter.ReqValidCheckFilter;
 import org.springframework.cloud.gateway.route.RouteLocator;
@@ -17,6 +18,7 @@ public class RouteConfiguration {
 
     @Bean
     public RouteLocator apiServiceRouteLocator(RouteLocatorBuilder builder,
+        ExceptionHandlerFilter exceptionHandlerFilter,
         InitFilter initFilter,
         ReqValidCheckFilter reqValidCheckFilter,
         AppAuthFilter appAuthFilter) {
@@ -24,6 +26,7 @@ public class RouteConfiguration {
             .route(r -> r.path("/apiservice/**")
                          .filters(f -> f.stripPrefix(1)
                                         .filters(
+                                            exceptionHandlerFilter,
                                             initFilter,
                                             reqValidCheckFilter,
                                             appAuthFilter))

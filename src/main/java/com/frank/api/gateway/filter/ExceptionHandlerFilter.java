@@ -23,7 +23,7 @@ import java.nio.charset.StandardCharsets;
 @Order(-1)
 @Slf4j
 @Component
-public class ErrorHandlerFilter implements GatewayFilter {
+public class ExceptionHandlerFilter implements GatewayFilter {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
