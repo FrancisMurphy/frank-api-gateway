@@ -7,6 +7,7 @@ import com.frank.api.gateway.auth.model.AppInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class AppInfoWithAuthDto {
                 return appAuth;
             }
         }
-        return null;
+        throw new ApiGatewayException(ApiGatewayAuthResponseCode.URL_NOT_AUTHORIZED, "应用没有权限请求 接口："+targetInterface);
     }
 
 }

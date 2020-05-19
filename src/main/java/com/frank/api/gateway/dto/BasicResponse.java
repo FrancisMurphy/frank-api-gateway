@@ -1,7 +1,9 @@
 package com.frank.api.gateway.dto;
 
 import com.frank.api.gateway.auth.constant.ApiGatewayAuthResponseCode;
+import com.frank.api.gateway.auth.exception.ApiGatewayException;
 import lombok.Data;
+import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -29,6 +31,10 @@ public class BasicResponse {
 
     public static BasicResponse success() {
         return new BasicResponse(ApiGatewayAuthResponseCode.SUCCESS);
+    }
+
+    public static BasicResponse apiError(@NonNull ApiGatewayException apiException) {
+        return new BasicResponse(apiException.getCode(), apiException.getMsg());
     }
 
     public static BasicResponse error() {

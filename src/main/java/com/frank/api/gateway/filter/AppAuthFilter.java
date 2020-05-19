@@ -35,20 +35,17 @@ public class AppAuthFilter implements GatewayFilter
 
         final ServerHttpRequest request = exchange.getRequest();
 
-        final String targetInterface = request.getPath().contextPath().value();
+        final String targetInterface = request.getPath().value();
         final String accessToken = request.getHeaders().getFirst(ApiParamKeys.REQ_HEAD_ACCESS_TOKEN);
 
         return appAuthService
             .getAppAuthInfo(new AppAuthReq(accessToken))
             .flatMap(appInfoWithAuthDto ->
-                Mono.just(appInfoWithAuthDto.check(targetInterface))
-                    .switchIfEmpty(
-                        Mono.error(new ApiGatewayException(ApiGatewayAuthResponseCode.URL_NOT_AUTHORIZED, "应用没有权限请求 接口："+targetInterface))))
+                Mono.just(appInfoWithAuthDto.check(targetInterface)))
             //将参数上下文带入到请求中
-            .flatMap(appAuth -> {
-                appAuth.getAttachParams().forEach((key, value) -> request.getHeaders().add("aaap_" + key, value));
-                return chain.filter(exchange);
-            });
+            .flatMap(appAuth -> chain.filter(exchange.mutate().request(request.mutate()
+                .headers((headers) -> appAuth.getAttachParams().forEach((k, v) -> headers.add("aaap_" + k, v))).build())
+                .build()));
     }
 
 }

@@ -25,9 +25,9 @@ spring:
     #    cluster:
     #      nodes: 192.168.1.193:7000,192.168.1.193:7002,192.168.1.193:7004
     #    type: cluster
-    host: 192.168.1.201
+    host: 172.16.32.44
     port: 6379
-    password: 1qaz#EDC
+#    password: 1qaz#EDC
     type: single
   cloud:
     gateway:
