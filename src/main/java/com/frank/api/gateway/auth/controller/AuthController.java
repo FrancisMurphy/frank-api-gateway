@@ -1,6 +1,6 @@
 package com.frank.api.gateway.auth.controller;
 
-import com.frank.api.gateway.auth.AccessTokenService;
+import com.frank.api.gateway.auth.AppAuthService;
 import com.frank.api.gateway.auth.dto.GetAccessTokenReq;
 import com.frank.api.gateway.dto.AccessTokenResponse;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +14,9 @@ import reactor.core.publisher.Mono;
 @RestController
 public class AuthController {
 
-    private AccessTokenService accessTokenService;
+    private AppAuthService accessTokenService;
 
-    public AuthController(AccessTokenService accessTokenService) {
+    public AuthController(AppAuthService accessTokenService) {
         this.accessTokenService = accessTokenService;
     }
 

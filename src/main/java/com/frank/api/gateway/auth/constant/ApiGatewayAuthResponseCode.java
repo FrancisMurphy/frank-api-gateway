@@ -25,4 +25,14 @@ public interface ApiGatewayAuthResponseCode {
      */
     String APP_AUTH_INFO_ERROR = "500001";
 
+    /**
+     * 无效的at
+     */
+    String INVALID_ACCESS_TOKEN = "500002";
+
+    /**
+     * URL_NOT_AUTHORIZED
+     */
+    String URL_NOT_AUTHORIZED = "500003";
+
 }
