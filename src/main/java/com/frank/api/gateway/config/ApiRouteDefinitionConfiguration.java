@@ -1,6 +1,7 @@
 package com.frank.api.gateway.config;
 
 import com.frank.api.gateway.auth.exception.ApiGatewayException;
+import com.frank.api.gateway.config.constant.ApiRouteDefinitionStatus;
 import com.frank.api.gateway.config.model.ApiRouteDefinition;
 import com.frank.api.gateway.config.repository.ApiRouteDefinitionRepository;
 import com.frank.api.gateway.config.constant.ApiRouteConfigConstant;
@@ -38,7 +39,7 @@ public class ApiRouteDefinitionConfiguration implements RouteDefinitionRepositor
     @Override
     public Flux<RouteDefinition> getRouteDefinitions() {
         return routes.size() > 0 ? Flux.fromIterable(routes.values())
-            : apiRouteDefinitionRepository.findAll(ApiRouteDefinition.findAvailable())
+            : apiRouteDefinitionRepository.findAllByStatus(ApiRouteDefinitionStatus.AVAILABLE)
                 .map(apiRouteDefinition ->{
                     RouteDefinition routeDefinition = apiRouteDefinition.getRouteDefinition();
                     routes.put(routeDefinition.getId(), routeDefinition);
@@ -67,6 +68,6 @@ public class ApiRouteDefinitionConfiguration implements RouteDefinitionRepositor
                 apiRouteDefinitionRepository.save(apiRouteDefinition.unavail())
                     .then(Mono.fromRunnable(
                         ()->routes.remove(apiRouteDefinition.getRouteId())))
-            );
+        );
     }
 }

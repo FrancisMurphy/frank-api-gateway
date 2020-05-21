@@ -13,6 +13,6 @@ public interface ApiRouteDefinitionStatus {
     /**
      * 禁用
      */
-    Integer UNAVAILABLE = 0;
+    Integer UNAVAILABLE = 1;
 
 }

@@ -6,6 +6,7 @@ import lombok.NonNull;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinition;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -19,6 +20,7 @@ public class ApiRouteDefinition {
     /**
      * 路由id
      */
+    @Id
     @Field("route_id")
     private String routeId;
     /**

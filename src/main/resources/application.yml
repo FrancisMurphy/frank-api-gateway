@@ -29,19 +29,25 @@ spring:
     port: 6379
 #    password: 1qaz#EDC
     type: single
-  cloud:
-    gateway:
-      routes:
-        - id: api
-          uri: http://localhost:20000
-          predicates:
-            - Path=/apiservice/**
-          filters:
-            - StripPrefix=1
-            - Init
-            - ReqValidCheck
-            - AppAuth
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: api
+#          uri: http://localhost:20000
+#          predicates:
+#            - Path=/apiservice/**
+#          filters:
+#            - StripPrefix=1
+#            - Init
+#            - ReqValidCheck
+#            - AppAuth
 
 logging:
   level:
     root: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway
