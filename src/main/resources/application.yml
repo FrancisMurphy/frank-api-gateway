@@ -38,7 +38,9 @@ spring:
             - Path=/apiservice/**
           filters:
             - StripPrefix=1
-
+            - Init
+            - ReqValidCheck
+            - AppAuth
 #            -
 
 #        - id: auth

@@ -7,6 +7,7 @@ import com.frank.api.gateway.auth.exception.ApiGatewayException;
 import com.frank.api.gateway.constant.ApiParamKeys;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
@@ -19,9 +20,8 @@ import reactor.core.publisher.Mono;
  * @author wangpeng
  * @date 2018/06/06
  */
-@Order(2)
 @Component
-public class AppAuthFilter implements GatewayFilter
+public class AppAuthFilter implements GatewayFilter, Ordered
 {
 
     private AppAuthService appAuthService;
@@ -48,4 +48,8 @@ public class AppAuthFilter implements GatewayFilter
                 .build()));
     }
 
+    @Override
+    public int getOrder() {
+        return 2;
+    }
 }

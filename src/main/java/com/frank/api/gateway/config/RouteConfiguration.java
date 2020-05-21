@@ -13,12 +13,11 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author frank
  */
-@Configuration
+//@Configuration
 public class RouteConfiguration {
 
-    @Bean
+//    @Bean
     public RouteLocator apiServiceRouteLocator(RouteLocatorBuilder builder,
-        ExceptionHandlerFilter exceptionHandlerFilter,
         InitFilter initFilter,
         ReqValidCheckFilter reqValidCheckFilter,
         AppAuthFilter appAuthFilter) {
@@ -27,14 +26,12 @@ public class RouteConfiguration {
             .route(r -> r.path("/apiservice/**")
                          .filters(f -> f.stripPrefix(1)
                                         .filters(
-                                            exceptionHandlerFilter,
                                             initFilter,
                                             reqValidCheckFilter,
                                             appAuthFilter))
                          .uri("http://localhost:20000")
                          .order(0)
-                         .id("api")
-            )
+                         .id("api"))
             .build();
     }
 }

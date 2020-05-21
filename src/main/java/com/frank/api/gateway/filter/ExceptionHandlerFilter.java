@@ -8,6 +8,8 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
+import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -20,10 +22,9 @@ import java.nio.charset.StandardCharsets;
 /**
  * @author frank
  */
-@Order(-1)
 @Slf4j
 @Component
-public class ExceptionHandlerFilter implements GatewayFilter {
+public class ExceptionHandlerFilter implements GlobalFilter, Ordered {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -50,4 +51,8 @@ public class ExceptionHandlerFilter implements GatewayFilter {
         }
     }
 
+    @Override
+    public int getOrder() {
+        return Integer.MIN_VALUE;
+    }
 }
