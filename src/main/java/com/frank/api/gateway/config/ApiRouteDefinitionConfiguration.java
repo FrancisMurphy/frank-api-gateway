@@ -1,8 +1,10 @@
 package com.frank.api.gateway.config;
 
+import com.frank.api.gateway.auth.exception.ApiGatewayException;
 import com.frank.api.gateway.config.model.ApiRouteDefinition;
 import com.frank.api.gateway.config.repository.ApiRouteDefinitionRepository;
 import com.frank.api.gateway.config.constant.ApiRouteConfigConstant;
+import com.frank.api.gateway.constant.ApiResponseCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
@@ -58,12 +60,13 @@ public class ApiRouteDefinitionConfiguration implements RouteDefinitionRepositor
 
     @Override
     public Mono<Void> delete(Mono<String> routeId) {
-        return routeId.flatMap(id -> {
-            if (routes.containsKey(id)) {
-                routes.remove(id);
-                return apiRouteDefinitionRepository.;
-            }
-            return Mono.defer(() -> Mono.error(new NotFoundException("RouteDefinition not found: " + routeId)));
-        });
+        return routeId.flatMap(id-> apiRouteDefinitionRepository.findById(id))
+            .switchIfEmpty(Mono.error(new ApiGatewayException(ApiResponseCode.CAN_NOT_FIND_API_ROUTE_DEFINITION.getCode(),
+                ApiResponseCode.CAN_NOT_FIND_API_ROUTE_DEFINITION.name())))
+            .flatMap(apiRouteDefinition ->
+                apiRouteDefinitionRepository.save(apiRouteDefinition.unavail())
+                    .then(Mono.fromRunnable(
+                        ()->routes.remove(apiRouteDefinition.getRouteId())))
+            );
     }
 }

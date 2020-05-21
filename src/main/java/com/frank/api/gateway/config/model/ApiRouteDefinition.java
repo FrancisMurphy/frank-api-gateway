@@ -76,4 +76,14 @@ public class ApiRouteDefinition {
     public static Example<ApiRouteDefinition> findAvailable() {
         return Example.of(new ApiRouteDefinition(ApiRouteDefinitionStatus.AVAILABLE));
     }
+
+    public ApiRouteDefinition unavail() {
+        this.setStatus(ApiRouteDefinitionStatus.UNAVAILABLE);
+        return this;
+    }
+
+    public ApiRouteDefinition avail() {
+        this.setStatus(ApiRouteDefinitionStatus.AVAILABLE);
+        return this;
+    }
 }
