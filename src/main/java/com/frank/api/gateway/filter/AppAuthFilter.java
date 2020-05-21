@@ -1,14 +1,11 @@
 package com.frank.api.gateway.filter;
 
 import com.frank.api.gateway.auth.AppAuthService;
-import com.frank.api.gateway.auth.constant.ApiGatewayAuthResponseCode;
 import com.frank.api.gateway.auth.dto.AppAuthReq;
-import com.frank.api.gateway.auth.exception.ApiGatewayException;
 import com.frank.api.gateway.constant.ApiParamKeys;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;

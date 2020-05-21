@@ -41,12 +41,6 @@ spring:
             - Init
             - ReqValidCheck
             - AppAuth
-#            -
-
-#        - id: auth
-#          uri: http://localhost:10000
-#          predicates:
-#            - Path=/appinfo/*
 
 logging:
   level:
