@@ -11,6 +11,9 @@ import lombok.ToString;
 @ToString
 public class AppInfoWithToken extends AppInfo {
 
+    /**
+     * 默认AccessToken过期时间
+     */
     public final static Long DEFALUT_TOKEN_EXPIRE = 7200l;
 
     private String accessToken;

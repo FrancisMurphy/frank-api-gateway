@@ -1,10 +1,10 @@
 package com.frank.api.gateway.auth.exception;
 
-import com.frank.api.gateway.constant.ApiResponseCode;
 import lombok.Data;
 import lombok.ToString;
 
 /**
+ * Api gateway common exception
  * @author frank
  */
 @Data

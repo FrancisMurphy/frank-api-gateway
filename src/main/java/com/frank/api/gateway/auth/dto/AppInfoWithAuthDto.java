@@ -11,6 +11,9 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+/**
+ * @author frank
+ */
 @AllArgsConstructor
 public class AppInfoWithAuthDto {
 

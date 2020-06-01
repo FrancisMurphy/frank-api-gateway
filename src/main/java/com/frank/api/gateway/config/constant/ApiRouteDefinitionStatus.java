@@ -1,6 +1,7 @@
 package com.frank.api.gateway.config.constant;
 
 /**
+ * 网关路由状态
  * @author frank
  */
 public interface ApiRouteDefinitionStatus {

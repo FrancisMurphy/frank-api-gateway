@@ -2,6 +2,7 @@ package com.frank.api.gateway.auth.constant;
 
 /**
  * 鉴权错误码 500000-599999
+ * @author frank
  */
 public interface ApiGatewayAuthResponseCode {
 

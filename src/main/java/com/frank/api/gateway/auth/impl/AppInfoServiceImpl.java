@@ -8,6 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+/**
+ * app info service
+ * @author frank
+ */
 @Slf4j
 @Component
 public class AppInfoServiceImpl implements AppInfoService {

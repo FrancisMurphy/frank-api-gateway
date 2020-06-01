@@ -14,8 +14,16 @@ import reactor.core.publisher.Mono;
 @Component
 public interface AppAuthService {
 
+    /**
+     * @param req
+     * @return
+     */
     Mono<AppInfoWithToken> getAccessToken(@NonNull GetAccessTokenReq req);
 
+    /**
+     * @param req
+     * @return
+     */
     Mono<AppInfoWithAuthDto> getAppAuthInfo(@NonNull final AppAuthReq req);
 
 }
