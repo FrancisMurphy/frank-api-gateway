@@ -28,7 +28,7 @@ public class CacheConfiguration {
             .hashKey(keySerializer)
             .hashValue(valueSerializer)
             .build();
-        return new ReactiveRedisTemplate(reactiveRedisConnectionFactory, serializationContext);
+        return new ReactiveRedisTemplate<>(reactiveRedisConnectionFactory, serializationContext);
     }
 
 }

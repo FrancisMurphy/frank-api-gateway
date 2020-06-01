@@ -14,6 +14,9 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author frank
+ */
 @Data
 public class ApiRouteDefinition {
 
@@ -47,6 +50,7 @@ public class ApiRouteDefinition {
     private Integer status;
 
     public ApiRouteDefinition() {
+        //donothing
     }
 
     public ApiRouteDefinition(Integer status) {

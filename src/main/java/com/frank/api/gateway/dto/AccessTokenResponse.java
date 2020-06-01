@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.frank.api.gateway.auth.constant.ApiGatewayAuthResponseCode;
 import com.frank.api.gateway.auth.pojo.AppInfoWithToken;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.ToString;
 
@@ -11,6 +12,7 @@ import lombok.ToString;
  * @author frank
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @ToString
 public class AccessTokenResponse extends BasicResponse{
 

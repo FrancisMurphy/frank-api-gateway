@@ -1,12 +1,14 @@
 package com.frank.api.gateway.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
  * @author frank
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @ToString
 public class DataResponse<T> extends BasicResponse {
 
